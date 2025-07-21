@@ -1,22 +1,30 @@
-"use client"
+"use client";
 
-import { Label } from "@/components/ui/label"
+import { Label } from "@/components/ui/label";
 
-import Link from "next/link"
+import Link from "next/link";
 
-import { useState, useEffect } from "react"
-import { Button } from "@/components/ui/button"
-import { Badge } from "@/components/ui/badge"
-import { Input } from "@/components/ui/input"
-import { Star, ShoppingCart, Heart, CheckCircle, Truck, RefreshCw, Shield } from "lucide-react"
-import Image from "next/image"
-import { Header } from "@/components/header"
-import { Footer } from "@/components/footer"
-import { Breadcrumbs } from "@/components/breadcrumbs"
-import { useCart } from "@/hooks/use-cart"
-import { useWishlist } from "@/hooks/use-wishlist"
-import { Separator } from "@/components/ui/separator"
-import { Progress } from "@/components/ui/progress"
+import { useState, useEffect } from "react";
+import { Button } from "@/components/ui/button";
+import { Badge } from "@/components/ui/badge";
+import { Input } from "@/components/ui/input";
+import {
+  Star,
+  ShoppingCart,
+  Heart,
+  CheckCircle,
+  Truck,
+  RefreshCw,
+  Shield,
+} from "lucide-react";
+import Image from "next/image";
+import { Header } from "@/components/header";
+import { Footer } from "@/components/footer";
+import { Breadcrumbs } from "@/components/breadcrumbs";
+import { useCart } from "@/hooks/use-cart";
+import { useWishlist } from "@/hooks/use-wishlist";
+import { Separator } from "@/components/ui/separator";
+import { Progress } from "@/components/ui/progress";
 
 // Mock product data (replace with actual data fetching in a real app)
 const mockProducts = [
@@ -87,41 +95,53 @@ const mockProducts = [
     ],
   },
   // Add more mock products as needed
-]
+];
 
-export default function ProductDetailPage({ params }: { params: { id: string } }) {
-  const productId = Number.parseInt(params.id)
-  const product = mockProducts.find((p) => p.id === productId)
+export default function ProductDetailPage({
+  params,
+}: {
+  params: { id: string };
+}) {
+  const productId = Number.parseInt(params.id);
+  const product = mockProducts.find((p) => p.id === productId);
 
-  const [quantity, setQuantity] = useState(1)
-  const [mainImage, setMainImage] = useState(product?.image || "/placeholder.svg")
+  const [quantity, setQuantity] = useState(1);
+  const [mainImage, setMainImage] = useState(
+    product?.image || "/placeholder.svg"
+  );
 
-  const { addToCart } = useCart()
-  const { addToWishlist, removeFromWishlist, isInWishlist } = useWishlist()
+  const { addToCart } = useCart();
+  const { addToWishlist, removeFromWishlist, isInWishlist } = useWishlist();
 
   useEffect(() => {
     if (product) {
-      setMainImage(product.image)
+      setMainImage(product.image);
     }
-  }, [product])
+  }, [product]);
 
   if (!product) {
     return (
       <div className="min-h-screen bg-background flex flex-col items-center justify-center text-center p-8">
-        <h1 className="text-4xl font-bold text-gray-900 mb-4 font-heading">Product Not Found</h1>
-        <p className="text-lg text-gray-600 mb-8">The product you are looking for does not exist.</p>
+        <h1 className="text-4xl font-bold text-gray-900 mb-4 font-heading">
+          Product Not Found
+        </h1>
+        <p className="text-lg text-gray-600 mb-8">
+          The product you are looking for does not exist.
+        </p>
         <Link href="/products">
-          <Button className="bg-primary hover:bg-primary-600 text-primary-foreground">Back to Products</Button>
+          <Button className="bg-primary hover:bg-primary-600 text-primary-foreground">
+            Back to Products
+          </Button>
         </Link>
       </div>
-    )
+    );
   }
 
   const breadcrumbs = [
     { label: "Home", href: "/" },
     { label: "Products", href: "/products" },
     { label: product.name, href: `/products/${product.id}` },
-  ]
+  ];
 
   const handleAddToCart = () => {
     addToCart({
@@ -129,22 +149,21 @@ export default function ProductDetailPage({ params }: { params: { id: string } }
       name: product.name,
       price: product.price,
       image: product.image,
-      quantity: quantity, // Pass quantity to cart hook
-    })
-  }
+    });
+  };
 
   const handleToggleWishlist = () => {
     if (isInWishlist(product.id)) {
-      removeFromWishlist(product.id)
+      removeFromWishlist(product.id);
     } else {
       addToWishlist({
         id: product.id,
         name: product.name,
         price: product.price,
         image: product.image,
-      })
+      });
     }
-  }
+  };
 
   return (
     <div className="min-h-screen bg-background font-sans">
@@ -157,14 +176,21 @@ export default function ProductDetailPage({ params }: { params: { id: string } }
           {/* Product Image Gallery */}
           <div className="flex flex-col items-center">
             <div className="relative w-full max-w-lg h-[450px] rounded-xl overflow-hidden shadow-lg mb-6">
-              <Image src={mainImage || "/placeholder.svg"} alt={product.name} layout="fill" objectFit="contain" />
+              <Image
+                src={mainImage || "/placeholder.svg"}
+                alt={product.name}
+                layout="fill"
+                objectFit="contain"
+              />
             </div>
             <div className="flex space-x-3 overflow-x-auto pb-2">
               {product.gallery.map((imgSrc, index) => (
                 <div
                   key={index}
                   className={`relative w-24 h-24 rounded-md overflow-hidden cursor-pointer border-2 ${
-                    mainImage === imgSrc ? "border-primary" : "border-transparent"
+                    mainImage === imgSrc
+                      ? "border-primary"
+                      : "border-transparent"
                   } hover:border-primary transition-colors duration-200`}
                   onClick={() => setMainImage(imgSrc)}
                 >
@@ -181,30 +207,42 @@ export default function ProductDetailPage({ params }: { params: { id: string } }
 
           {/* Product Details */}
           <div className="space-y-6">
-            <h1 className="text-4xl font-bold text-gray-900 font-heading">{product.name}</h1>
+            <h1 className="text-4xl font-bold text-gray-900 font-heading">
+              {product.name}
+            </h1>
             <div className="flex items-center">
               <div className="flex items-center">
                 {[...Array(5)].map((_, i) => (
                   <Star
                     key={i}
                     className={`w-5 h-5 ${
-                      i < Math.floor(product.rating) ? "fill-yellow-400 text-yellow-400" : "text-gray-300"
+                      i < Math.floor(product.rating)
+                        ? "fill-yellow-400 text-yellow-400"
+                        : "text-gray-300"
                     }`}
                   />
                 ))}
               </div>
-              <span className="text-lg text-gray-600 ml-3 font-medium">({product.reviews} reviews)</span>
+              <span className="text-lg text-gray-600 ml-3 font-medium">
+                ({product.reviews} reviews)
+              </span>
             </div>
 
             <div className="flex items-center gap-4">
-              <span className="text-5xl font-bold text-primary">₵{product.price.toFixed(2)}</span>
-              <span className="text-2xl text-gray-500 line-through">₵{product.originalPrice.toFixed(2)}</span>
+              <span className="text-5xl font-bold text-primary">
+                ₵{product.price.toFixed(2)}
+              </span>
+              <span className="text-2xl text-gray-500 line-through">
+                ₵{product.originalPrice.toFixed(2)}
+              </span>
               <Badge className="bg-green-500 text-white text-lg px-3 py-1 rounded-full font-bold">
                 -{product.discount}%
               </Badge>
             </div>
 
-            <p className="text-lg text-gray-700 leading-relaxed">{product.description}</p>
+            <p className="text-lg text-gray-700 leading-relaxed">
+              {product.description}
+            </p>
 
             <Separator />
 
@@ -217,7 +255,11 @@ export default function ProductDetailPage({ params }: { params: { id: string } }
               <Progress value={product.stockLevel} className="h-2" />
               <p className="text-base text-gray-700 flex items-center">
                 <div
-                  className={`w-3 h-3 rounded-full mr-2 ${product.inStock ? "bg-green-500 animate-pulse" : "bg-red-500"}`}
+                  className={`w-3 h-3 rounded-full mr-2 ${
+                    product.inStock
+                      ? "bg-green-500 animate-pulse"
+                      : "bg-red-500"
+                  }`}
                 ></div>
                 {product.inStock ? "In Stock" : "Out of Stock"}
               </p>
@@ -232,7 +274,9 @@ export default function ProductDetailPage({ params }: { params: { id: string } }
                 type="number"
                 min="1"
                 value={quantity}
-                onChange={(e) => setQuantity(Math.max(1, Number.parseInt(e.target.value) || 1))}
+                onChange={(e) =>
+                  setQuantity(Math.max(1, Number.parseInt(e.target.value) || 1))
+                }
                 className="w-24 text-center text-lg"
               />
               <Button
@@ -254,7 +298,11 @@ export default function ProductDetailPage({ params }: { params: { id: string } }
                 }`}
                 onClick={handleToggleWishlist}
               >
-                <Heart className={`w-6 h-6 ${isInWishlist(product.id) ? "fill-red-500" : ""}`} />
+                <Heart
+                  className={`w-6 h-6 ${
+                    isInWishlist(product.id) ? "fill-red-500" : ""
+                  }`}
+                />
               </Button>
             </div>
 
@@ -262,7 +310,9 @@ export default function ProductDetailPage({ params }: { params: { id: string } }
 
             {/* Product Features */}
             <div className="space-y-4">
-              <h3 className="text-2xl font-bold text-gray-900 font-heading">Key Features</h3>
+              <h3 className="text-2xl font-bold text-gray-900 font-heading">
+                Key Features
+              </h3>
               <ul className="grid grid-cols-1 sm:grid-cols-2 gap-3 text-lg text-gray-700">
                 {product.features.map((feature, index) => (
                   <li key={index} className="flex items-center">
@@ -277,7 +327,9 @@ export default function ProductDetailPage({ params }: { params: { id: string } }
 
             {/* Specifications */}
             <div className="space-y-4">
-              <h3 className="text-2xl font-bold text-gray-900 font-heading">Specifications</h3>
+              <h3 className="text-2xl font-bold text-gray-900 font-heading">
+                Specifications
+              </h3>
               <ul className="list-disc list-inside text-lg text-gray-700 space-y-2">
                 {product.specifications.map((spec, index) => (
                   <li key={index}>{spec}</li>
@@ -288,35 +340,52 @@ export default function ProductDetailPage({ params }: { params: { id: string } }
             {/* Simulated Reviews Section */}
             <Separator />
             <div className="space-y-6">
-              <h3 className="text-2xl font-bold text-gray-900 font-heading">Customer Reviews ({product.reviews})</h3>
+              <h3 className="text-2xl font-bold text-gray-900 font-heading">
+                Customer Reviews ({product.reviews})
+              </h3>
               <div className="space-y-4">
                 {/* Example Review 1 */}
                 <div className="border-b pb-4 last:border-b-0">
                   <div className="flex items-center mb-2">
                     {[...Array(5)].map((_, i) => (
-                      <Star key={i} className="w-4 h-4 fill-yellow-400 text-yellow-400" />
+                      <Star
+                        key={i}
+                        className="w-4 h-4 fill-yellow-400 text-yellow-400"
+                      />
                     ))}
-                    <span className="text-sm text-gray-600 ml-2">by Jane Doe on Dec 20, 2024</span>
+                    <span className="text-sm text-gray-600 ml-2">
+                      by Jane Doe on Dec 20, 2024
+                    </span>
                   </div>
                   <p className="text-gray-700 italic">
-                    "This knife set is absolutely amazing! Super sharp and comfortable to use."
+                    "This knife set is absolutely amazing! Super sharp and
+                    comfortable to use."
                   </p>
                 </div>
                 {/* Example Review 2 */}
                 <div className="border-b pb-4 last:border-b-0">
                   <div className="flex items-center mb-2">
                     {[...Array(4)].map((_, i) => (
-                      <Star key={i} className="w-4 h-4 fill-yellow-400 text-yellow-400" />
+                      <Star
+                        key={i}
+                        className="w-4 h-4 fill-yellow-400 text-yellow-400"
+                      />
                     ))}
                     <Star className="w-4 h-4 text-gray-300" />
-                    <span className="text-sm text-gray-600 ml-2">by John Smith on Dec 18, 2024</span>
+                    <span className="text-sm text-gray-600 ml-2">
+                      by John Smith on Dec 18, 2024
+                    </span>
                   </div>
                   <p className="text-gray-700 italic">
-                    "Good quality, but the block is a bit bulky for my small kitchen."
+                    "Good quality, but the block is a bit bulky for my small
+                    kitchen."
                   </p>
                 </div>
               </div>
-              <Button variant="outline" className="text-primary hover:bg-primary-50 bg-transparent">
+              <Button
+                variant="outline"
+                className="text-primary hover:bg-primary-50 bg-transparent"
+              >
                 Read All Reviews
               </Button>
             </div>
@@ -326,5 +395,5 @@ export default function ProductDetailPage({ params }: { params: { id: string } }
 
       <Footer />
     </div>
-  )
+  );
 }

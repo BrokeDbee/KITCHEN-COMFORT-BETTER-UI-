@@ -1,12 +1,18 @@
-"use client"
+"use client";
 
-import type React from "react"
+import type React from "react";
 
-import { useState, useEffect } from "react"
-import { Button } from "@/components/ui/button"
-import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
-import { Badge } from "@/components/ui/badge"
-import { Progress } from "@/components/ui/progress"
+import { useState, useEffect } from "react";
+import { Button } from "@/components/ui/button";
+import {
+  Card,
+  CardContent,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
+import { Progress } from "@/components/ui/progress";
 import {
   Star,
   ShoppingCart,
@@ -23,25 +29,25 @@ import {
   Zap,
   ChefHat,
   Heart,
-} from "lucide-react"
-import Image from "next/image"
-import Link from "next/link"
-import { Header } from "@/components/header"
-import { Footer } from "@/components/footer"
-import { ProductQuickView } from "@/components/product-quick-view"
-import { ScrollToTopButton } from "@/components/scroll-to-top-button"
-import { ProductCardSkeleton } from "@/components/product-card-skeleton"
-import { useCart } from "@/hooks/use-cart"
-import { useWishlist } from "@/hooks/use-wishlist" // Import useWishlist
+} from "lucide-react";
+import Image from "next/image";
+import Link from "next/link";
+import { Header } from "@/components/header";
+import { Footer } from "@/components/footer";
+import { ProductQuickView } from "@/components/product-quick-view";
+import { ScrollToTopButton } from "@/components/scroll-to-top-button";
+import { ProductCardSkeleton } from "@/components/product-card-skeleton";
+import { useCart } from "@/hooks/use-cart";
+import { useWishlist } from "@/hooks/use-wishlist"; // Import useWishlist
 
 export default function HomePage() {
-  const [isQuickViewOpen, setIsQuickViewOpen] = useState(false)
-  const [selectedProduct, setSelectedProduct] = useState(null)
-  const [newsletterEmail, setNewsletterEmail] = useState("")
-  const [newsletterSuccess, setNewsletterSuccess] = useState(false)
-  const [loadingProducts, setLoadingProducts] = useState(true)
-  const { addToCart } = useCart()
-  const { addToWishlist, removeFromWishlist, isInWishlist } = useWishlist() // Use wishlist hook
+  const [isQuickViewOpen, setIsQuickViewOpen] = useState(false);
+  const [selectedProduct, setSelectedProduct] = useState(null);
+  const [newsletterEmail, setNewsletterEmail] = useState("");
+  const [newsletterSuccess, setNewsletterSuccess] = useState(false);
+  const [loadingProducts, setLoadingProducts] = useState(true);
+  const { addToCart } = useCart();
+  const { addToWishlist, removeFromWishlist, isInWishlist } = useWishlist(); // Use wishlist hook
 
   const featuredProducts = [
     {
@@ -96,7 +102,7 @@ export default function HomePage() {
       inStock: true,
       stockLevel: 78,
     },
-  ]
+  ];
 
   const categories = [
     { name: "Kitchen Knives", count: "50+ items", trend: "+12%" },
@@ -105,28 +111,31 @@ export default function HomePage() {
     { name: "Utensils", count: "60+ items", trend: "+5%" },
     { name: "Storage", count: "40+ items", trend: "+10%" },
     { name: "Accessories", count: "90+ items", trend: "+7%" },
-  ]
+  ];
 
   const features = [
     {
       icon: Truck,
       title: "Free Delivery",
-      description: "Free delivery on orders over ₵200 across Ghana. Fast and reliable shipping to your doorstep.",
+      description:
+        "Free delivery on orders over ₵200 across Ghana. Fast and reliable shipping to your doorstep.",
       highlight: "Same day delivery available",
     },
     {
       icon: Shield,
       title: "Quality Guarantee",
-      description: "30-day money back guarantee on all products. Your satisfaction is our priority.",
+      description:
+        "30-day money back guarantee on all products. Your satisfaction is our priority.",
       highlight: "100% satisfaction guaranteed",
     },
     {
       icon: Award,
       title: "Premium Quality",
-      description: "Carefully curated kitchen essentials from trusted brands. Only the best for your kitchen.",
+      description:
+        "Carefully curated kitchen essentials from trusted brands. Only the best for your kitchen.",
       highlight: "Handpicked by experts",
     },
-  ]
+  ];
 
   const additionalFeatures = [
     {
@@ -147,7 +156,8 @@ export default function HomePage() {
     {
       icon: Gift,
       title: "Loyalty Rewards",
-      description: "Earn points with every purchase and get exclusive discounts",
+      description:
+        "Earn points with every purchase and get exclusive discounts",
     },
     {
       icon: Zap,
@@ -159,43 +169,46 @@ export default function HomePage() {
       title: "Live Chat",
       description: "Instant help with our live chat support system",
     },
-  ]
+  ];
 
   const testimonials = [
     {
       name: "Sarah Johnson",
       location: "Accra, Ghana",
       rating: 5,
-      comment: "Amazing quality products! My new knife set has completely transformed my cooking experience.",
+      comment:
+        "Amazing quality products! My new knife set has completely transformed my cooking experience.",
       image: "/placeholder.svg?height=60&width=60",
     },
     {
       name: "Michael Asante",
       location: "Kumasi, Ghana",
       rating: 5,
-      comment: "Fast delivery and excellent customer service. The air fryer works perfectly!",
+      comment:
+        "Fast delivery and excellent customer service. The air fryer works perfectly!",
       image: "/placeholder.svg?height=60&width=60",
     },
     {
       name: "Grace Mensah",
       location: "Tamale, Ghana",
       rating: 5,
-      comment: "Best kitchen store in Ghana. High quality products at reasonable prices.",
+      comment:
+        "Best kitchen store in Ghana. High quality products at reasonable prices.",
       image: "/placeholder.svg?height=60&width=60",
     },
-  ]
+  ];
 
   useEffect(() => {
     const timer = setTimeout(() => {
-      setLoadingProducts(false)
-    }, 1000)
-    return () => clearTimeout(timer)
-  }, [])
+      setLoadingProducts(false);
+    }, 1000);
+    return () => clearTimeout(timer);
+  }, []);
 
   const handleQuickView = (product: any) => {
-    setSelectedProduct(product)
-    setIsQuickViewOpen(true)
-  }
+    setSelectedProduct(product);
+    setIsQuickViewOpen(true);
+  };
 
   const handleAddToCart = (product: any) => {
     addToCart({
@@ -203,29 +216,29 @@ export default function HomePage() {
       name: product.name,
       price: product.price,
       image: product.image,
-    })
-  }
+    });
+  };
 
   const handleToggleWishlist = (product: any) => {
     if (isInWishlist(product.id)) {
-      removeFromWishlist(product.id)
+      removeFromWishlist(product.id);
     } else {
       addToWishlist({
         id: product.id,
         name: product.name,
         price: product.price,
         image: product.image,
-      })
+      });
     }
-  }
+  };
 
   const handleNewsletterSubmit = (e: React.FormEvent) => {
-    e.preventDefault()
-    console.log("Newsletter signup for:", newsletterEmail)
-    setNewsletterSuccess(true)
-    setNewsletterEmail("")
-    setTimeout(() => setNewsletterSuccess(false), 3000)
-  }
+    e.preventDefault();
+    console.log("Newsletter signup for:", newsletterEmail);
+    setNewsletterSuccess(true);
+    setNewsletterEmail("");
+    setTimeout(() => setNewsletterSuccess(false), 3000);
+  };
 
   return (
     <div className="min-h-screen bg-background font-sans">
@@ -257,8 +270,9 @@ export default function HomePage() {
             </h1>
 
             <p className="text-xl lg:text-2xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
-              Discover premium kitchen utensils and appliances that make cooking a joy. From professional-grade knives
-              to smart appliances - we have everything you need to create culinary masterpieces.
+              Discover premium kitchen utensils and appliances that make cooking
+              a joy. From professional-grade knives to smart appliances - we
+              have everything you need to create culinary masterpieces.
             </p>
 
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
@@ -286,7 +300,9 @@ export default function HomePage() {
                 <div className="text-4xl font-bold text-primary group-hover:scale-110 transition-transform duration-300">
                   500+
                 </div>
-                <div className="text-gray-600 font-medium">Premium Products</div>
+                <div className="text-gray-600 font-medium">
+                  Premium Products
+                </div>
                 <Progress
                   value={85}
                   className="mt-2 h-1.5 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
@@ -325,12 +341,16 @@ export default function HomePage() {
       </section>
 
       {/* Section for the previously floating cards (now static) */}
+      {/* Section Name: Our Core Values */}
       <section className="py-20 px-4 bg-white">
         <div className="container mx-auto">
           <div className="text-center mb-16 animate-fade-in">
-            <h2 className="text-4xl font-bold text-gray-900 mb-4 font-heading">Our Core Values</h2>
+            <h2 className="text-4xl font-bold text-gray-900 mb-4 font-heading">
+              Our Core Values
+            </h2>
             <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-              What makes Kitchen Comfort your ideal choice for kitchen essentials
+              What makes Kitchen Comfort your ideal choice for kitchen
+              essentials
             </p>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
@@ -342,7 +362,9 @@ export default function HomePage() {
               <h3 className="font-bold text-xl mb-3 text-gray-900 group-hover:text-primary transition-colors duration-300 font-heading">
                 Professional Tools
               </h3>
-              <p className="text-gray-600 leading-relaxed">Chef-grade utensils for perfect results</p>
+              <p className="text-gray-600 leading-relaxed">
+                Chef-grade utensils for perfect results
+              </p>
               <div className="mt-4 flex items-center text-primary opacity-0 group-hover:opacity-100 transition-all duration-300">
                 <TrendingUp className="w-4 h-4 mr-2" />
                 <span className="text-sm font-medium">Most Popular</span>
@@ -356,7 +378,9 @@ export default function HomePage() {
               <h3 className="font-bold text-xl mb-3 text-gray-900 group-hover:text-primary transition-colors duration-300 font-heading">
                 Quality Assured
               </h3>
-              <p className="text-gray-600 leading-relaxed">Premium materials, lasting durability</p>
+              <p className="text-gray-600 leading-relaxed">
+                Premium materials, lasting durability
+              </p>
               <div className="mt-4 flex items-center text-primary opacity-0 group-hover:opacity-100 transition-all duration-300">
                 <Shield className="w-4 h-4 mr-2" />
                 <span className="text-sm font-medium">Guaranteed</span>
@@ -370,7 +394,9 @@ export default function HomePage() {
               <h3 className="font-bold text-xl mb-3 text-gray-900 group-hover:text-primary transition-colors duration-300 font-heading">
                 Fast Delivery
               </h3>
-              <p className="text-gray-600 leading-relaxed">Quick shipping across Ghana</p>
+              <p className="text-gray-600 leading-relaxed">
+                Quick shipping across Ghana
+              </p>
               <div className="mt-4 flex items-center text-primary opacity-0 group-hover:opacity-100 transition-all duration-300">
                 <Zap className="w-4 h-4 mr-2" />
                 <span className="text-sm font-medium">Lightning Fast</span>
@@ -384,7 +410,9 @@ export default function HomePage() {
               <h3 className="font-bold text-gray-900 text-lg mb-3 group-hover:text-primary transition-colors duration-300 font-heading">
                 Community
               </h3>
-              <p className="text-gray-600 text-sm mb-2">Join thousands of happy cooks</p>
+              <p className="text-gray-600 text-sm mb-2">
+                Join thousands of happy cooks
+              </p>
               <div className="flex items-center justify-center text-green-600 text-xs font-medium opacity-0 group-hover:opacity-100 transition-all duration-300">
                 <Users className="w-4 h-4 mr-2 text-primary group-hover:scale-110 transition-transform duration-300" />
                 50K+ Members
@@ -398,9 +426,12 @@ export default function HomePage() {
       <section className="py-20 px-4 bg-white relative overflow-hidden">
         <div className="container mx-auto">
           <div className="text-center mb-16 animate-fade-in">
-            <h2 className="text-4xl font-bold text-gray-900 mb-4 font-heading">Shop by Category</h2>
+            <h2 className="text-4xl font-bold text-gray-900 mb-4 font-heading">
+              Shop by Category
+            </h2>
             <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-              Explore our carefully curated categories of premium kitchen essentials
+              Explore our carefully curated categories of premium kitchen
+              essentials
             </p>
           </div>
 
@@ -432,9 +463,12 @@ export default function HomePage() {
       <section className="py-20 px-4 bg-gray-50 relative overflow-hidden">
         <div className="container mx-auto">
           <div className="text-center mb-16 animate-fade-in">
-            <h2 className="text-4xl font-bold text-gray-900 mb-4 font-heading">Why Choose Kitchen Comfort?</h2>
+            <h2 className="text-4xl font-bold text-gray-900 mb-4 font-heading">
+              Why Choose Kitchen Comfort?
+            </h2>
             <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-              We're committed to providing the best kitchen essentials with exceptional service
+              We're committed to providing the best kitchen essentials with
+              exceptional service
             </p>
           </div>
 
@@ -451,7 +485,9 @@ export default function HomePage() {
                 <h3 className="text-2xl font-bold mb-4 text-gray-900 group-hover:text-primary transition-colors duration-300 font-heading">
                   {feature.title}
                 </h3>
-                <p className="text-gray-600 text-lg leading-relaxed mb-4">{feature.description}</p>
+                <p className="text-gray-600 text-lg leading-relaxed mb-4">
+                  {feature.description}
+                </p>
                 <div className="inline-flex items-center text-primary font-medium opacity-0 group-hover:opacity-100 transition-all duration-300 transform translate-y-2 group-hover:translate-y-0">
                   <div className="w-2 h-2 bg-primary rounded-full mr-2 animate-pulse"></div>
                   {feature.highlight}
@@ -466,7 +502,9 @@ export default function HomePage() {
       <section className="py-20 px-4 bg-white">
         <div className="container mx-auto">
           <div className="text-center mb-16 animate-fade-in">
-            <h2 className="text-4xl font-bold text-gray-900 mb-4 font-heading">More Reasons to Love Us</h2>
+            <h2 className="text-4xl font-bold text-gray-900 mb-4 font-heading">
+              More Reasons to Love Us
+            </h2>
             <p className="text-xl text-gray-600 max-w-3xl mx-auto">
               Discover all the ways we make your shopping experience exceptional
             </p>
@@ -487,7 +525,9 @@ export default function HomePage() {
                 <h3 className="text-xl font-bold mb-3 text-gray-900 group-hover:text-primary transition-colors duration-300 font-heading">
                   {feature.title}
                 </h3>
-                <p className="text-gray-600 leading-relaxed">{feature.description}</p>
+                <p className="text-gray-600 leading-relaxed">
+                  {feature.description}
+                </p>
               </div>
             ))}
           </div>
@@ -498,9 +538,12 @@ export default function HomePage() {
       <section className="py-20 px-4 bg-gray-50">
         <div className="container mx-auto">
           <div className="text-center mb-16 animate-fade-in">
-            <h2 className="text-4xl font-bold text-gray-900 mb-4 font-heading">What Our Customers Say</h2>
+            <h2 className="text-4xl font-bold text-gray-900 mb-4 font-heading">
+              What Our Customers Say
+            </h2>
             <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-              Don't just take our word for it - hear from our satisfied customers
+              Don't just take our word for it - hear from our satisfied
+              customers
             </p>
           </div>
 
@@ -523,15 +566,22 @@ export default function HomePage() {
                     <h4 className="font-bold text-gray-900 group-hover:text-primary transition-colors duration-300 font-heading">
                       {testimonial.name}
                     </h4>
-                    <p className="text-gray-600 text-sm">{testimonial.location}</p>
+                    <p className="text-gray-600 text-sm">
+                      {testimonial.location}
+                    </p>
                   </div>
                 </div>
                 <div className="flex items-center mb-4">
                   {[...Array(testimonial.rating)].map((_, i) => (
-                    <Star key={i} className="w-5 h-5 fill-yellow-400 text-yellow-400" />
+                    <Star
+                      key={i}
+                      className="w-5 h-5 fill-yellow-400 text-yellow-400"
+                    />
                   ))}
                 </div>
-                <p className="text-gray-700 leading-relaxed italic">"{testimonial.comment}"</p>
+                <p className="text-gray-700 leading-relaxed italic">
+                  "{testimonial.comment}"
+                </p>
               </div>
             ))}
           </div>
@@ -542,15 +592,20 @@ export default function HomePage() {
       <section className="py-20 px-4 bg-white">
         <div className="container mx-auto">
           <div className="text-center mb-16 animate-fade-in">
-            <h2 className="text-4xl font-bold text-gray-900 mb-4 font-heading">Featured Products</h2>
+            <h2 className="text-4xl font-bold text-gray-900 mb-4 font-heading">
+              Featured Products
+            </h2>
             <p className="text-xl text-gray-600 max-w-2xl mx-auto">
-              Discover our most popular kitchen essentials, loved by home cooks and professional chefs alike
+              Discover our most popular kitchen essentials, loved by home cooks
+              and professional chefs alike
             </p>
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
             {loadingProducts
-              ? Array.from({ length: 4 }).map((_, index) => <ProductCardSkeleton key={index} />)
+              ? Array.from({ length: 4 }).map((_, index) => (
+                  <ProductCardSkeleton key={index} />
+                ))
               : featuredProducts.map((product, index) => (
                   <Card
                     key={product.id}
@@ -598,21 +653,31 @@ export default function HomePage() {
                             <Star
                               key={i}
                               className={`w-4 h-4 transition-colors duration-300 ${
-                                i < Math.floor(product.rating) ? "fill-yellow-400 text-yellow-400" : "text-gray-300"
+                                i < Math.floor(product.rating)
+                                  ? "fill-yellow-400 text-yellow-400"
+                                  : "text-gray-300"
                               }`}
                             />
                           ))}
                         </div>
-                        <span className="text-sm text-gray-600 ml-2 font-medium">({product.reviews})</span>
+                        <span className="text-sm text-gray-600 ml-2 font-medium">
+                          ({product.reviews})
+                        </span>
                       </div>
                       <div className="flex items-center gap-3 mb-4">
-                        <span className="text-2xl font-bold text-primary">₵{product.price.toFixed(2)}</span>
-                        <span className="text-lg text-gray-500 line-through">₵{product.originalPrice.toFixed(2)}</span>
+                        <span className="text-2xl font-bold text-primary">
+                          ₵{product.price.toFixed(2)}
+                        </span>
+                        <span className="text-lg text-gray-500 line-through">
+                          ₵{product.originalPrice.toFixed(2)}
+                        </span>
                       </div>
                       <div className="space-y-2">
                         <div className="flex justify-between text-sm text-gray-600">
                           <span>Stock Level</span>
-                          <span className="font-medium">{product.stockLevel}%</span>
+                          <span className="font-medium">
+                            {product.stockLevel}%
+                          </span>
                         </div>
                         <Progress value={product.stockLevel} className="h-2" />
                         <p className="text-sm text-gray-600 flex items-center">
@@ -634,11 +699,17 @@ export default function HomePage() {
                         variant="ghost"
                         size="icon"
                         className={`ml-2 rounded-xl hover:bg-primary-50 ${
-                          isInWishlist(product.id) ? "text-red-500" : "text-gray-500 hover:text-primary"
+                          isInWishlist(product.id)
+                            ? "text-red-500"
+                            : "text-gray-500 hover:text-primary"
                         }`}
                         onClick={() => handleToggleWishlist(product)}
                       >
-                        <Heart className={`w-5 h-5 ${isInWishlist(product.id) ? "fill-red-500" : ""}`} />
+                        <Heart
+                          className={`w-5 h-5 ${
+                            isInWishlist(product.id) ? "fill-red-500" : ""
+                          }`}
+                        />
                       </Button>
                     </CardFooter>
                   </Card>
@@ -669,9 +740,12 @@ export default function HomePage() {
               Join our community of food lovers
             </div>
 
-            <h2 className="text-4xl font-bold text-primary-900 mb-6 font-heading">Stay Updated with Kitchen Comfort</h2>
+            <h2 className="text-4xl font-bold text-primary-900 mb-6 font-heading">
+              Stay Updated with Kitchen Comfort
+            </h2>
             <p className="text-xl text-gray-700 mb-12 leading-relaxed">
-              Get notified about new products, exclusive deals, cooking tips, and join our community of passionate cooks
+              Get notified about new products, exclusive deals, cooking tips,
+              and join our community of passionate cooks
             </p>
 
             <form
@@ -722,8 +796,12 @@ export default function HomePage() {
       </section>
 
       <Footer />
-      <ProductQuickView product={selectedProduct} isOpen={isQuickViewOpen} onClose={() => setIsQuickViewOpen(false)} />
+      <ProductQuickView
+        product={selectedProduct}
+        isOpen={isQuickViewOpen}
+        onClose={() => setIsQuickViewOpen(false)}
+      />
       <ScrollToTopButton />
     </div>
-  )
+  );
 }
